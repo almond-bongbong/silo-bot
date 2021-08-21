@@ -10,6 +10,7 @@ import { TaskService } from './task/task.service';
 import { CrawlerService } from './crawler/crawler.service';
 
 console.log('Environment :', process.env.NODE_ENV);
+console.log('Environment SLACK_BOT_OAUTH_TOKEN :', process.env.SLACK_BOT_OAUTH_TOKEN);
 
 @Module({
   imports: [
