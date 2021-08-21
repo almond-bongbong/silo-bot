@@ -9,6 +9,7 @@ export class NotificationService {
   slackClient;
 
   constructor(@Inject(CONFIG_OPTIONS) private readonly options?: NotificationModuleOptions) {
+    console.log('Setup slack bot :', options.slackBotOauthToken);
     this.slackClient = new WebClient(options.slackBotOauthToken);
   }
 
