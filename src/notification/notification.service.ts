@@ -8,9 +8,7 @@ import { isDevelopment } from '../lib/environment';
 export class NotificationService {
   slackClient;
 
-  constructor(
-    @Inject(CONFIG_OPTIONS) private readonly options: NotificationModuleOptions,
-  ) {
+  constructor(@Inject(CONFIG_OPTIONS) private readonly options?: NotificationModuleOptions) {
     this.slackClient = new WebClient(options.slackBotOauthToken);
   }
 
