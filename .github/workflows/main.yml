@@ -52,7 +52,7 @@ jobs:
 
       # Now, its time to deploy our package to Beanstalk that we've configured earlier, to deploy our app we need Secret keys that we can get from the AWS user, every user has separate keys on AWS.
       - name: Deploy for app
-        uses: appleboy/scp-action@deploy
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
