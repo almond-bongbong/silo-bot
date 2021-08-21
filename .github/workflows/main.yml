@@ -46,10 +46,9 @@ jobs:
           flags: 'g'
 
       - name: Create env file
-          run: |
-            touch .env.production
-            echo SLACK_BOT_OAUTH_TOKEN=${{ secrets.SLACK_BOT_OAUTH_TOKEN }} >> .env.production
-            cat .env.production
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_SLACK_BOT_OAUTH_TOKEN: ${{ secrets.SLACK_BOT_OAUTH_TOKEN }}
 
       # Now, its time to deploy our package to Beanstalk that we've configured earlier, to deploy our app we need Secret keys that we can get from the AWS user, every user has separate keys on AWS.
       - name: Deploy for app
