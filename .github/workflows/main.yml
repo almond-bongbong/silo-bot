@@ -32,7 +32,7 @@ jobs:
         uses: SpicyPizza/create-envfile@v1
         with:
           envkey_SLACK_BOT_OAUTH_TOKEN: ${{ secrets.SLACK_BOT_OAUTH_TOKEN }}
-          directory: 'dist'
+          directory: dist
           file_name: .env.production
 
       - name: Executing remote ssh commands (remove directory)
