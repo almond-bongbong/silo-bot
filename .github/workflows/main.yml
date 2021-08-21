@@ -32,6 +32,18 @@ jobs:
         uses: SpicyPizza/create-envfile@v1
         with:
           envkey_SLACK_BOT_OAUTH_TOKEN: ${{ secrets.SLACK_BOT_OAUTH_TOKEN }}
+          directory: dist
+          file_name: .env.production
+
+      - name: Executing remote ssh commands (remove directory)
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            rm -rf /home/ubuntu/silo-bot/dist
 
       # Now, its time to deploy our package to Beanstalk that we've configured earlier, to deploy our app we need Secret keys that we can get from the AWS user, every user has separate keys on AWS.
       - name: Deploy for app
@@ -41,10 +53,10 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          source: 'dist'
+          source: 'dist,'
           target: '/home/ubuntu/silo-bot'
 
-      - name: Executing remote ssh commands
+      - name: Executing remote ssh commands (start server)
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -52,7 +64,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            pm2 reload /home/ubuntu/silo-bot/dist/main.js
+            pm2 restart /home/ubuntu/silo-bot/dist/main.js
 
       - name: Deployed!
         run: echo App deployed to server
