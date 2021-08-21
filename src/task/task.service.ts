@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Interval } from '@nestjs/schedule';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { CrawlerService } from '../crawler/crawler.service';
 import { NotificationService } from '../notification/notification.service';
 import { CRAWLER_NOTIFICATION_CHANNEL } from '../notification/notification.constant';
@@ -13,9 +13,9 @@ export class TaskService {
     private readonly notificationService: NotificationService,
   ) {}
 
-  @Interval(30 * 1000)
+  @Cron(CronExpression.EVERY_MINUTE)
   async checkForModaModaShampooSoldOut() {
-    console.log('✅ Check modamoda crawler', new Date().toLocaleString());
+    console.log('✅ Check modamoda crawler : ', new Date().toLocaleString());
 
     try {
       const isSoldOut = await this.crawlerService.checkModamodaSoldOut();
@@ -26,6 +26,8 @@ export class TaskService {
           : `⭕️ 현재 모다모다 샴푸 구입이 가능합니다. https://modamoda.co.kr/`;
         this.notificationService.postMessage(CRAWLER_NOTIFICATION_CHANNEL, message);
       }
+
+      this.isSoldOut = isSoldOut;
     } catch (error) {
       console.error(error);
     }
