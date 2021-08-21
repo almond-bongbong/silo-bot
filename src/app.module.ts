@@ -28,7 +28,7 @@ console.log('Environment :', process.env.NODE_ENV);
 export class AppModule {
   constructor(private readonly notificationService: NotificationService) {
     if (isProduction) {
-      notificationService.postMessage(CRAWLER_NOTIFICATION_CHANNEL, '🚀 Server started!!');
+      notificationService.postMessage(CRAWLER_NOTIFICATION_CHANNEL, '🚀 Server started!');
     }
   }
 }

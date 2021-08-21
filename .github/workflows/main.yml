@@ -62,7 +62,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            NODE_ENV=production pm2 start /home/ubuntu/silo-bot/dist/main.js --name silo-bot
+            NODE_ENV=production pm2 reload /home/ubuntu/silo-bot/dist/main.js --name silo-bot
 
       - name: Deployed!
         run: echo App deployed to server
