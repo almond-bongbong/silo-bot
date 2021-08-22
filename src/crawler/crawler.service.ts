@@ -13,6 +13,8 @@ export class CrawlerService {
       .toArray()
       .filter((e) => $(e).html().includes('34,000원'));
 
+    if (!starterProduct) throw new Error('Node not found');
+
     const soldOutIcon = $(starterProduct).find('[alt=품절]').attr('src');
     return Boolean(soldOutIcon);
   }
