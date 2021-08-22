@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { CrawlerService } from '../crawler/crawler.service';
-import { NotificationService } from '../notification/notification.service';
-import { CRAWLER_NOTIFICATION_CHANNEL } from '../notification/notification.constant';
+import { SlackService } from '../slack/slack.service';
+import { CRAWLER_NOTIFICATION_CHANNEL } from '../slack/slack.constant';
 
 @Injectable()
 export class TaskService {
@@ -11,7 +11,7 @@ export class TaskService {
 
   constructor(
     private readonly crawlerService: CrawlerService,
-    private readonly notificationService: NotificationService,
+    private readonly notificationService: SlackService,
   ) {}
 
   @Cron(CronExpression.EVERY_MINUTE)

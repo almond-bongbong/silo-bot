@@ -1,7 +1,5 @@
 ## Features
 
-- [ ] 모다모다 샴푸 입고 알림봇
+- [x] 모다모다 샴푸 입고 알림봇
+- [ ] 범용 슬랙 챗봇
 
-## License
-
-Nest is [MIT licensed](LICENSE).
