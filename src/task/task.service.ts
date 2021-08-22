@@ -7,6 +7,7 @@ import { CRAWLER_NOTIFICATION_CHANNEL } from '../notification/notification.const
 @Injectable()
 export class TaskService {
   isSoldOut = true;
+  error;
 
   constructor(
     private readonly crawlerService: CrawlerService,
@@ -28,8 +29,13 @@ export class TaskService {
       }
 
       this.isSoldOut = isSoldOut;
+      this.error = null;
     } catch (error) {
       console.error(error);
+      if (!error) {
+        this.notificationService.postMessage(CRAWLER_NOTIFICATION_CHANNEL, '문제가 발생했습니다.');
+      }
+      this.error = error;
     }
   }
 }
