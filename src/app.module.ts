@@ -28,9 +28,9 @@ console.log('Environment :', process.env.NODE_ENV);
   providers: [TaskService, CrawlerService],
 })
 export class AppModule {
-  constructor(private readonly notificationService: SlackService) {
+  constructor(private readonly slackService: SlackService) {
     if (isProduction) {
-      notificationService.postMessage(CRAWLER_NOTIFICATION_CHANNEL, '🚀 Server started!');
+      slackService.postMessage(CRAWLER_NOTIFICATION_CHANNEL, '🚀 Server started!');
     }
   }
 }

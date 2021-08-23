@@ -9,7 +9,6 @@ export class SlackService {
   slackApp: App;
 
   constructor(@Inject(CONFIG_OPTIONS) private readonly options?: NotificationModuleOptions) {
-    console.log('Setup slack bot :', options.slackBotOauthToken);
     this.slackApp = new App({
       token: options.slackBotOauthToken,
       signingSecret: options.slackBotSigningSecret,

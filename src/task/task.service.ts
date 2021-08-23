@@ -11,7 +11,7 @@ export class TaskService {
 
   constructor(
     private readonly crawlerService: CrawlerService,
-    private readonly notificationService: SlackService,
+    private readonly slackService: SlackService,
   ) {}
 
   @Cron(CronExpression.EVERY_MINUTE)
@@ -25,7 +25,7 @@ export class TaskService {
         const message = isSoldOut
           ? `❌ 모다모다 샴푸가 품절되었습니다.`
           : `⭕️ 현재 모다모다 샴푸 구입이 가능합니다. https://modamoda.co.kr/`;
-        this.notificationService.postMessage(CRAWLER_NOTIFICATION_CHANNEL, message);
+        this.slackService.postMessage(CRAWLER_NOTIFICATION_CHANNEL, message);
       }
 
       this.isSoldOut = isSoldOut;
@@ -33,7 +33,7 @@ export class TaskService {
     } catch (error) {
       console.error(error);
       if (!error) {
-        this.notificationService.postMessage(CRAWLER_NOTIFICATION_CHANNEL, '문제가 발생했습니다.');
+        this.slackService.postMessage(CRAWLER_NOTIFICATION_CHANNEL, '문제가 발생했습니다.');
       }
       this.error = error;
     }
