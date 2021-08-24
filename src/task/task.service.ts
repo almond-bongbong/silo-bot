@@ -3,6 +3,7 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { CrawlerService } from '../crawler/crawler.service';
 import { SlackService } from '../slack/slack.service';
 import { CRAWLER_NOTIFICATION_CHANNEL } from '../slack/slack.constant';
+import dayjs from 'dayjs';
 
 @Injectable()
 export class TaskService {
@@ -20,11 +21,13 @@ export class TaskService {
 
     try {
       const isSoldOut = await this.crawlerService.checkModamodaSoldOut();
+      const datetime = dayjs().format('MM/DD HH:mm');
 
       if (this.isSoldOut !== isSoldOut) {
-        const message = isSoldOut
-          ? `❌ 모다모다 샴푸가 품절되었습니다.`
-          : `⭕️ 현재 모다모다 샴푸 구입이 가능합니다. https://modamoda.co.kr/`;
+        const soldOutMessage = isSoldOut
+          ? '🔴 모다모다 샴푸가 품절되었습니다.'
+          : '🟢️ 현재 모다모다 샴푸 구입이 가능합니다. https://modamoda.co.kr/';
+        const message = `${soldOutMessage} - ${datetime}`;
         this.slackService.postMessage(CRAWLER_NOTIFICATION_CHANNEL, message);
       }
 

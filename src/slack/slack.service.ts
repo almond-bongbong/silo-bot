@@ -19,17 +19,14 @@ export class SlackService {
     this.slackApp.start();
   }
 
-  postMessage(channel: string, message: string) {
+  async postMessage(channel: string, message: string) {
     const text = `${isDevelopment ? '(개발) ' : ''}${message}`;
 
-    this.slackApp.client.chat
-      .postMessage({
-        channel,
-        text,
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      await this.slackApp.client.chat.postMessage({ channel, text });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   subscribeCommand() {
