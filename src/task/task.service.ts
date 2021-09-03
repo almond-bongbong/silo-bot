@@ -35,7 +35,7 @@ export class TaskService {
       this.error = null;
     } catch (error) {
       console.error(error);
-      if (!error) {
+      if (!this.error) {
         this.slackService.postMessage(CRAWLER_NOTIFICATION_CHANNEL, '문제가 발생했습니다.');
       }
       this.error = error;
