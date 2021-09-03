@@ -26,7 +26,7 @@ export class TaskService {
       if (this.isSoldOut !== isSoldOut) {
         const soldOutMessage = isSoldOut
           ? '🔴 모다모다 샴푸가 품절되었습니다.'
-          : '🟢️ 현재 모다모다 샴푸 구입이 가능합니다. https://modamoda.co.kr/';
+          : '🟢️ 모다모다 샴푸 구매가 가능합니다. https://modamoda.co.kr/';
         const message = `${soldOutMessage} - ${datetime}`;
         this.slackService.postMessage(CRAWLER_NOTIFICATION_CHANNEL, message);
       }
