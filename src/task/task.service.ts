@@ -3,7 +3,7 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { CrawlerService } from '../crawler/crawler.service';
 import { SlackService } from '../slack/slack.service';
 import { CRAWLER_NOTIFICATION_CHANNEL } from '../slack/slack.constant';
-import dayjs from 'dayjs';
+import * as dayjs from 'dayjs';
 
 @Injectable()
 export class TaskService {
