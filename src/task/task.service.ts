@@ -35,8 +35,11 @@ export class TaskService {
       this.error = null;
     } catch (error) {
       console.error(error);
+
       if (!this.error) {
-        this.slackService.postMessage(CRAWLER_NOTIFICATION_CHANNEL, '문제가 발생했습니다.');
+        const errorMessage =
+          error?.response?.status > 500 ? '🔧 5xx 서버에러' : '🔧 문제가 발생했습니다.';
+        this.slackService.postMessage(CRAWLER_NOTIFICATION_CHANNEL, errorMessage);
       }
       this.error = error;
     }
