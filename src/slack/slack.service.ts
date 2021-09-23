@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CONFIG_OPTIONS } from './slack.constant';
 import { NotificationModuleOptions } from './slack.type';
-import { App } from '@slack/bolt';
+import { App, MessageAttachment } from '@slack/bolt';
 import { isDevelopment } from '../lib/environment';
 
 @Injectable()
@@ -19,11 +19,12 @@ export class SlackService {
     this.slackApp.start();
   }
 
-  async postMessage(channel: string, message: string) {
+  async postMessage(channel: string, message: string, attachments?: MessageAttachment[]) {
     const text = `${isDevelopment ? '(개발) ' : ''}${message}`;
 
     try {
-      await this.slackApp.client.chat.postMessage({ channel, text });
+      console.log(attachments);
+      await this.slackApp.client.chat.postMessage({ channel, text, attachments });
     } catch (error) {
       console.log(error);
     }
